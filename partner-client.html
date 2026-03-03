@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partners & Clients | Teknologi KBSE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #111827; /* bg-gray-900 */
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #f59e0b; /* bg-amber-500 */
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #d97706; /* bg-amber-600 */
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-900">
+    <div id="root"></div>
+    <script type="text/babel" data-type="module">
+      import React, { useState, useEffect, useRef } from 'react';
+      import ReactDOM from 'react-dom/client';
+
+      // === Reusable Components (for consistency) ===
+
+      const ChevronDownIcon = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      );
+
+      const NavLink = ({ href, children }) => (
+        <a href={href} className="text-gray-300 hover:text-amber-400 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">
+          {children}
+        </a>
+      );
+
+      const DropdownLink = ({ href, children }) => (
+        <a href={href} className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-amber-400 w-full text-left transition-colors duration-300">
+          {children}
+        </a>
+      );
+
+      const Dropdown = ({ title, children }) => (
+          <div className="relative group">
+              <button className="text-gray-300 hover:text-amber-400 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                  {title}
+                  <ChevronDownIcon />
+              </button>
+              <div className="absolute left-0 mt-1 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 transform group-hover:translate-y-0 translate-y-2">
+                  <div className="py-1">
+                      {children}
+                  </div>
+              </div>
+          </div>
+      );
+
+      const Header = ({ isVisible }) => (
+        <header
+          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
+            isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+          }`}
+        >
+          <nav className="bg-black/70 backdrop-blur-md shadow-lg shadow-amber-500/10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                <div className="flex items-center gap-4">
+                  <a href="#" className="flex-shrink-0">
+                    <img src="image/logo kbse white.png" alt="Teknologi KBSE Logo" className="h-10 w-auto" />
+                  </a>
+                  {/* Updated Header: Image beside the logo */}
+                  <img 
+                    src="image/ISO.jpeg" 
+                    alt="Technology Partner" 
+                    className="h-8 w-auto rounded opacity-80 hover:opacity-100 transition-opacity"
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <div className="ml-10 flex items-baseline space-x-4">
+                    <NavLink href="index.html">Home</NavLink>
+                    <Dropdown title="About Us">
+                      <DropdownLink href="overview.html">Company Overview</DropdownLink>
+                      <DropdownLink href="team.html">Leadership & Team</DropdownLink>
+                      <DropdownLink href="cert-award.html">Certificates & Awards</DropdownLink>
+                    </Dropdown>
+                    <Dropdown title="Projects & Services">
+                      <DropdownLink href="product.html">Projects / Products</DropdownLink>
+                      <DropdownLink href="service.html">Services</DropdownLink>
+                    </Dropdown>
+                    <NavLink href="partner-client.html">Partners & Clients</NavLink>
+                    <NavLink href="galleryActivity.html">Activities & Gallery</NavLink>
+                    <NavLink href="contact.html">Contact Us</NavLink>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+      );
+      
+      const FooterLink = ({ href, children }) => (
+          <a href={href} className="text-gray-400 hover:text-amber-400 transition-colors duration-300">
+              {children}
+          </a>
+      );
+
+      const Footer = () => {
+          return (
+              <footer className="bg-gray-900 text-gray-400 py-12">
+                  <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                          <div className="space-y-4">
+                            <img 
+                                src="image/logo kbse white.png"
+                                alt="Teknologi KBSE Logo"
+                                className="h-12 w-auto"
+                            />                         
+                            <p className="text-sm">Teknologi KBSE Sdn Bhd (0759215-M)</p>
+                            <p className="text-sm">1-11-2 & 1-11-3, Presint Alami, Pusat Perdagangan Worldwide 2 Persiaran Akuatik, Seksyen 13, 40100 Shah Alam, Selangor, Malaysia.</p>
+                          </div>
+                          <div>
+                              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Quick Links</h3>
+                              <ul className="mt-4 space-y-2">
+                                  <li><FooterLink href="index.html">Home</FooterLink></li>
+                                  <li><FooterLink href="overview.html">About Us</FooterLink></li>
+                                  <li><FooterLink href="product.html">Projects & Services</FooterLink></li>
+                                  <li><FooterLink href="partner-client.html">Partners & Clients</FooterLink></li>
+                                  <li><FooterLink href="contact.html">Contact Us</FooterLink></li>
+                              </ul>
+                          </div>
+                          <div>
+                              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Discover</h3>
+                              <ul className="mt-4 space-y-2">
+                                  <li><FooterLink href="cert-award.html">Certificates & Awards</FooterLink></li>
+                                  <li><FooterLink href="galleryActivity.html">Activities & Gallery</FooterLink></li>
+                                  <li><FooterLink href="overview.html">Company Overview</FooterLink></li>
+                                  <li><FooterLink href="team.html">Leadership</FooterLink></li>
+                                  <li><FooterLink href="faq.html">FAQ</FooterLink></li>
+                              </ul>
+                          </div>
+                          <div>
+                              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Legal</h3>
+                              <ul className="mt-4 space-y-2">
+                                  <li><FooterLink href="privacyPolicy.html">Privacy Policy</FooterLink></li>
+                                  <li><FooterLink href="term-condition.html">Terms & Conditions</FooterLink></li>
+                              </ul>
+                          </div>
+                      </div>
+
+                      <div className="mt-12 border-t border-gray-700 pt-8 text-center text-sm">
+                          <p>&copy; {new Date().getFullYear()} Teknologi KBSE Sdn. Bhd. All rights reserved.</p>
+                      </div>
+                  </div>
+              </footer>
+          );
+      };
+
+      const AnimatedSection = ({ children, className = '', delay = 0 }) => {
+        const [isVisible, setIsVisible] = useState(false);
+        const sectionRef = useRef(null);
+
+        useEffect(() => {
+          const observer = new IntersectionObserver(
+            ([entry]) => {
+              if (entry.isIntersecting) {
+                setIsVisible(true);
+                observer.unobserve(entry.target);
+              }
+            },
+            { root: null, rootMargin: '0px', threshold: 0.1 }
+          );
+          
+          const currentRef = sectionRef.current;
+          if (currentRef) observer.observe(currentRef);
+          return () => { if (currentRef) observer.unobserve(currentRef); };
+        }, []);
+
+        return (
+          <div
+            ref={sectionRef}
+            className={`transition-all duration-1000 ease-out ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            } ${className}`}
+            style={{ transitionDelay: `${delay}ms` }}
+          >
+            {children}
+          </div>
+        );
+      };
+
+      const SectionTitle = ({ children, className = '' }) => (
+          <h2 className={`text-3xl font-bold mb-4 tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500 ${className}`}>
+              {children}
+          </h2>
+      );
+      
+      const Parallax = ({ children, className = '', speed = 0.1, axis = 'y' }) => {
+          const elRef = useRef(null);
+
+          useEffect(() => {
+              let isTicking = false;
+              const handleScroll = () => {
+                  if (!elRef.current) return;
+                  const rect = elRef.current.getBoundingClientRect();
+                  const windowHeight = window.innerHeight;
+                  if (rect.bottom < 0 || rect.top > windowHeight) return;
+                  const elementCenter = rect.top + rect.height / 2;
+                  const viewportCenter = windowHeight / 2;
+                  const progress = (elementCenter - viewportCenter) / viewportCenter;
+                  const offset = -progress * speed * 100;
+                  elRef.current.style.transform = `translate${axis.toUpperCase()}(${offset}px) translateZ(0)`;
+              };
+              const onScroll = () => {
+                  if (!isTicking) {
+                      window.requestAnimationFrame(() => {
+                          handleScroll();
+                          isTicking = false;
+                      });
+                      isTicking = true;
+                  }
+              };
+              window.addEventListener('scroll', onScroll, { passive: true });
+              handleScroll();
+              return () => window.removeEventListener('scroll', onScroll);
+          }, [speed, axis]);
+
+          return <div ref={elRef} className={className}>{children}</div>;
+      };
+
+
+      // === Data for Partners & Clients Page ===
+      const partnersData = [
+          { name: 'MEEM Gold', logoUrl: 'image/Meem Gold.png' },
+          { name: 'Masheeta Beauty', logoUrl: 'image/Masheeta.png' },
+          { name: 'Kolej Vokasional Kuala Selangor', logoUrl: 'image/Kolej Vokasional Kuala Selangor.png' },
+          { name: 'TBT', logoUrl: 'image/Think Big Training.png' },
+          { name: 'Globe OSS', logoUrl: 'image/Globe OSS.png' },
+          { name: 'UTHM', logoUrl: 'image/UTHM.png' },
+          { name: 'UiTM Arau', logoUrl: 'image/UiTM Arau.png' },
+          { name: 'Dell', logoUrl: 'image/Dell.png' },
+          { name: 'HP', logoUrl: 'image/HP.png' },
+          { name: 'Billplz', logoUrl: 'image/Billplz.png' },
+          { name: 'Matrix HSE', logoUrl: 'image/Matrix HSE.png' },
+          { name: 'BlackX', logoUrl: 'image/Blacx.png' }
+      ];
+
+      const clientsData = {
+        government: [
+          { name: 'Cam Ice Machince', logoUrl: 'image/cam ice machine.png' },
+          { name: 'Vision Foam Ind.', logoUrl: 'image/vision foam.png' },
+          { name: 'SD Guthrie', logoUrl: 'image/sd guthrie.png' },
+          { name: 'Sinaran Ais', logoUrl: 'image/sinaran ais.png' },
+          { name: 'Allied Flourish', logoUrl: 'image/allied flourish.png' },
+          { name: 'MEEM Gold', logoUrl: 'image/Meem Gold.png' },
+          { name: '96 Ice Tube', logoUrl: 'image/96 ice tube.png' },
+          { name: 'Ideas CAD Technology', logoUrl: 'image/ideas cad tech.png' },
+          { name: 'Yakult', logoUrl: 'image/yakult.png' },
+          { name: 'Gaslink', logoUrl: 'image/gaslink.png' },
+          { name: 'Masheeta Beauty', logoUrl: 'image/Masheeta.png' },
+          { name: 'SP Metal Components', logoUrl: 'image/sp metal.png' },
+          { name: 'Kementerian Kerja Raya (KKR)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Kementerian Belia dan Sukan (KBS)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Kementerian Kesihatan Malaysia (MOH)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Agensi Nuklear Malaysia (MINT)', logoUrl: 'https://www.nuclearmalaysia.gov.my/images/logoLink/logo.png' },
+          { name: 'Kementerian Kesejahteraan Bandar Perumahan dan Kerajaan Tempatan (KPKT)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'George Town World Heritage Incorporate (GTWHI)', logoUrl: 'https://gtwhi.com.my/wp-content/uploads/2024/09/GTWHI_TM.png' },
+          { name: 'Jabatan Perancangan Bandar dan Desa Semenanjung Malaysia (JPBD SM)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Jabatan Perancangan Bandar dan Desa Pulau Pinang (JPBD Pulau Pinang)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Lembaga Lebuhraya Malaysia (LLM)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Jabatan Ukur dan Pemetaan (JUPEM)', logoUrl: 'https://www.jupem.gov.my/main/img/logo-default/logo_JUPEM.svg' },
+          { name: 'Perbadanan Labuan', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Seal_of_Labuan.svg/375px-Seal_of_Labuan.svg.png' },
+          { name: 'Pusat Geospatial Negara (PGN)', logoUrl: 'https://www.mygeoportal.gov.my/sites/default/files/Logo-2.png' },
+          { name: 'Institut Penyelidikan Perhutanan Malaysia (FRIM)', logoUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d8/FRIM_logo.svg/375px-FRIM_logo.svg.png' },
+          { name: 'Pejabat Ketua Pendaftar Mahkamah Persekutuan Malaysia Jabatan Perdana Menteri', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Bahagian Hal Ehwal Malaysia (BHEUU) Jabatan Perdana Menteri', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Jabatan Audit Negara', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Jabatan Pengairan dan Saliran Malaysia (JPS)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Suruhanjaya Koperasi Malaysia (SKM)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Arkib Negara Malaysia', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Perbadanan Tabung Pembangunan Kemahiran (PTPK)', logoUrl: 'https://spas.ptpk.gov.my/myserv_picture_ptpk/apps/intrologo_PTPK.png' },
+          { name: 'Kolej Komuniti Teluk Intan', logoUrl: 'https://www.mypolycc.edu.my/images/jdownloads/screenshots/thumbnails/TELUK%20INTAN-outlines.png' },
+          { name: 'Akademi Seni Budaya dan Warisan Kebangsaan (ASWARA)', logoUrl: 'https://www.aswara.edu.my/img/logo/only-aswara-logo.png' },
+          { name: 'Lembaga Pembangunan Seni Visual Negara (LPSVN)', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Koperasi Telekom Malaysia Berhad (KOTA MAS)', logoUrl: 'https://kotamas.com.my/wp-content/uploads/2021/04/logo.png' },
+          { name: 'Pejabat Pilihan Raya Negeri Selangor', logoUrl: 'https://mysprsemak.spr.gov.my/img/Semakan/spr.png' },
+          { name: 'Majlis Bandaraya Subang Jaya', logoUrl: 'https://portal.mbsj.gov.my/sites/default/files/mpsj_logo_new_55px.png' },
+          { name: 'Jabatan Warisan Negara', logoUrl: 'https://www.moe.gov.my/storage/files/shares/1704770967_jata-negara-svg.svg' },
+          { name: 'Universiti Selangor (UNISEL)', logoUrl: 'https://unisel.edu.my/wp-content/uploads/2024/06/logo_unisel_140k.png' },
+          { name: 'Universiti Teknologi MARA (UiTM)', logoUrl: 'https://ufuture.uitm.edu.my/home/img/logo/uitm.png' },
+          { name: 'Universiti Putra Malaysia (UPM)', logoUrl: 'image/upm.png' },
+          { name: 'Universiti Teknologi Malaysia (UTM)', logoUrl: 'https://www.utm.my/wp-content/uploads/2022/10/LOGO-UTM.png' },
+          { name: 'Universiti Tun Hussein Onn Malaysia (UTHM)', logoUrl: 'https://www.uthm.edu.my/en/downloads/uthm-official-logo/26-logo-rasmi-uthm/file' },
+          { name: 'Kolej Kesihatan Bersekutu Sungai Buloh (KSKB)', logoUrl: 'image/kskb.png' },
+          { name: 'Univsersiti Islam Selangor (UIS)', logoUrl: 'https://www.uis.edu.my/images/logo-uis-2025-100h.png' },
+          { name: 'Kolej Vokasional (KPM)', logoUrl: 'image/kv kpm.png' },
+        ],
+      };
+
+
+      // === New Components for this Page ===
+
+      const PartnerCard = ({ partner }) => (
+        <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700 rounded-lg p-4 flex flex-col items-center justify-center text-center h-48 transform hover:-translate-y-2 transition-all duration-300 hover:border-amber-500 hover:shadow-xl hover:shadow-amber-500/10 group">
+          {partner.logoUrl ? (
+            <>
+              <div className="flex-grow w-full h-24 flex items-center justify-center mb-3">
+                <div className="w-full h-full bg-white/95 rounded-md flex items-center justify-center p-2">
+                    <img 
+                        src={partner.logoUrl} 
+                        alt={partner.name} 
+                        className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-110" 
+                    />
+                </div>
+              </div>
+              <p className="text-gray-300 text-sm font-medium h-12 flex items-center justify-center">{partner.name}</p>
+            </>
+          ) : (
+            <h3 className="text-gray-200 text-lg font-bold text-center tracking-wide p-4">{partner.name}</h3>
+          )}
+        </div>
+      );
+      
+      const ClientCard = ({ client }) => (
+        <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-40 transform hover:-translate-y-1 transition-all duration-300 hover:border-amber-500/50 group">
+            {client.logoUrl ? (
+                <>
+                    <div className="flex-grow w-full h-20 flex items-center justify-center mb-2">
+                        <div className="w-full h-full bg-white/95 rounded-md flex items-center justify-center p-2">
+                            <img 
+                            src={client.logoUrl} 
+                            alt={client.name} 
+                            className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-110" 
+                            />
+                        </div>
+                    </div>
+                    <p className="text-gray-400 text-xs h-12 flex items-center justify-center">{client.name}</p>
+                </>
+                ) : (
+                <div className="w-full h-full flex items-center justify-center p-3">
+                  <p className="text-gray-300 text-xs text-center">{client.name}</p>
+                </div>
+            )}
+        </div>
+      );
+
+
+      // === Main Page Component ===
+      const PartnerClientPage = () => {
+        return (
+          <div className="bg-gray-900 text-white overflow-x-hidden">
+            <Header isVisible={true} />
+            <main className="relative">
+              
+              <section className="relative py-20 md:py-32 overflow-hidden">
+                <Parallax speed={0.3} className="absolute inset-0 z-0">
+                  <video autoPlay loop muted playsInline src="video/bghp.mp4" className="w-full h-full object-cover opacity-90 scale-125">
+                    Your browser does not support the video tag.
+                  </video>
+                </Parallax>
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                <div className="relative container mx-auto px-6 text-center z-10">
+                  <AnimatedSection>
+                    <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-500">Partners & Clients</span>
+                    </h1>
+                    <p className="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+                      Building strong relationships and delivering excellence to a diverse range of organizations.
+                    </p>
+                  </AnimatedSection>
+                </div>
+              </section>
+
+              <div className="relative bg-gray-900">
+                <div className="container mx-auto px-6 py-20 space-y-24">
+                  
+                  {/* Business Partners Section */}
+                  <section>
+                    <AnimatedSection>
+                      <div className="text-center">
+                       <SectionTitle>Our Valued Business Partners</SectionTitle>
+                        <p className="text-gray-300 max-w-3xl mx-auto mt-8 mb-16">
+                            We collaborate with industry leaders to deliver cutting-edge solutions and drive technological advancement.
+                        </p>
+                      </div>
+                    </AnimatedSection>
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                       {partnersData.map((partner, index) => (
+                          <AnimatedSection key={partner.name} delay={index * 80}>
+                            <PartnerCard partner={partner} />
+                          </AnimatedSection>
+                        ))}
+                    </div>
+                  </section>
+                  
+                  {/* Clients Section */}
+                  <section>
+                     <AnimatedSection>
+                        <div className="text-center">
+                            <SectionTitle>Who We've Worked With</SectionTitle>
+                            <p className="text-gray-300 max-w-3xl mx-auto mt-8 mb-16">
+                                We are proud to have served a wide array of clients, from government bodies to leading educational institutions, helping them achieve their strategic goals.
+                            </p>
+                        </div>
+                    </AnimatedSection>
+                    
+                    {/* Government Clients */}
+                    <div>
+                        <AnimatedSection delay={200}>
+                            <h3 className="text-2xl font-semibold text-white mb-8 text-center">Our Clients</h3>
+                        </AnimatedSection>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                            {clientsData.government.map((client, index) => (
+                                <AnimatedSection key={client.name} delay={index * 30}>
+                                    <ClientCard client={client} />
+                                </AnimatedSection>
+                            ))}
+                        </div>
+                    </div>
+                    
+                  </section>
+                </div>
+              </div>
+            </main>
+            <Footer />
+          </div>
+        );
+      };
+
+      // === Render the App ===
+      const rootElement = document.getElementById('root');
+      if (!rootElement) {
+        throw new Error("Could not find root element to mount to");
+      }
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(
+        <React.StrictMode>
+          <PartnerClientPage />
+        </React.StrictMode>
+      );
+    </script>
+  </body>
+</html>
