@@ -176,61 +176,61 @@
       };
       
       const FooterLink = ({ href, children }) => (
-          <a href={href} className="text-gray-400 hover:text-amber-400 transition-colors duration-300">
-              {children}
-          </a>
+        <a href={href} className="text-gray-400 hover:text-amber-400 transition-colors duration-300">
+          {children}
+        </a>
       );
 
-      const Footer = () => {
-          return (
-              <footer className="bg-gray-900 text-gray-400 py-12">
-                  <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                          <div className="space-y-4">
-                            <img 
-                                src="image/logo kbse white.png"
-                                alt="Teknologi KBSE Logo"
-                                className="h-12 w-auto"
-                            />                         
-                            <p className="text-sm">Teknologi KBSE Sdn Bhd (0759215-M)</p>
-                            <p className="text-sm">1-11-2 & 1-11-3, Presint Alami, Pusat Perdagangan Worldwide 2 Persiaran Akuatik, Seksyen 13, 40100 Shah Alam, Selangor, Malaysia.</p>
-                          </div>
-                          <div>
-                              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Quick Links</h3>
-                              <ul className="mt-4 space-y-2">
-                                  <li><FooterLink href="index.html">Home</FooterLink></li>
-                                  <li><FooterLink href="overview.html">About Us</FooterLink></li>
-                                  <li><FooterLink href="product.html">Projects & Services</FooterLink></li>
-                                  <li><FooterLink href="partner-client.html">Partners & Clients</FooterLink></li>
-                                  <li><FooterLink href="contact.html">Contact Us</FooterLink></li>
-                              </ul>
-                          </div>
-                          <div>
-                              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Discover</h3>
-                              <ul className="mt-4 space-y-2">
-                                  <li><FooterLink href="cert-award.html">Certificates & Awards</FooterLink></li>
-                                  <li><FooterLink href="galleryActivity.html">Activities & Gallery</FooterLink></li>
-                                  <li><FooterLink href="overview.html">Company Overview</FooterLink></li>
-                                  <li><FooterLink href="team.html">Leadership</FooterLink></li>
-                                  <li><FooterLink href="faq.html">FAQ</FooterLink></li>
-                              </ul>
-                          </div>
-                          <div>
-                              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Legal</h3>
-                              <ul className="mt-4 space-y-2">
-                                  <li><FooterLink href="privacyPolicy.html">Privacy Policy</FooterLink></li>
-                                  <li><FooterLink href="term-condition.html">Terms & Conditions</FooterLink></li>
-                              </ul>
-                          </div>
-                      </div>
-
-                      <div className="mt-12 border-t border-gray-700 pt-8 text-center text-sm">
-                          <p>&copy; {new Date().getFullYear()} Teknologi KBSE Sdn. Bhd. All rights reserved.</p>
-                      </div>
-                  </div>
-              </footer>
-          );
-      };
+      const Footer = () => (
+        <footer className="bg-gray-900 text-gray-400 py-12">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="space-y-4">
+                <img src="image/logo kbse white.png" alt="Teknologi KBSE Logo" className="h-12 w-auto" />
+                <p className="text-sm">Teknologi KBSE Sdn Bhd (0759215-M)</p>
+                <p className="text-sm">1-11-2 & 1-11-3, Presint Alami, Pusat Perdagangan Worldwide 2 Persiaran Akuatik, Seksyen 13, 40100 Shah Alam, Selangor, Malaysia.</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Quick Links</h3>
+                <ul className="mt-4 space-y-2">
+                  <li><FooterLink href="index.html">Home</FooterLink></li>
+                  <li><FooterLink href="overview.html">About Us</FooterLink></li>
+                  <li><FooterLink href="product.html">Projects & Services</FooterLink></li>
+                  <li><FooterLink href="partner-client.html">Partners & Clients</FooterLink></li>
+                  <li><FooterLink href="contact.html">Contact Us</FooterLink></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Discover</h3>
+                <ul className="mt-4 space-y-2">
+                  <li><FooterLink href="cert-award.html">Certificates & Awards</FooterLink></li>
+                  <li><FooterLink href="galleryActivity.html">Activities & Gallery</FooterLink></li>
+                  <li><FooterLink href="overview.html">Company Overview</FooterLink></li>
+                  <li><FooterLink href="team.html">Leadership</FooterLink></li>
+                  <li><FooterLink href="faq.html">FAQ</FooterLink></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Legal</h3>
+                <ul className="mt-4 space-y-2">
+                  <li><FooterLink href="privacyPolicy.html">Privacy Policy</FooterLink></li>
+                  <li><FooterLink href="term-condition.html">Terms & Conditions</FooterLink></li>
+                  <li className="mt-6">
+                    <img 
+                      src="image/ISO.jpeg" 
+                      alt="ISO Certification" 
+                      className="w-[160px] h-auto rounded opacity-80 hover:opacity-100 transition-opacity block" 
+                    />
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-12 border-t border-gray-700 pt-8 text-center text-sm">
+              <p>&copy; {new Date().getFullYear()} Teknologi KBSE Sdn. Bhd. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
+      );
       
       const PolicySection = ({ title, children, className = "" }) => (
         <div className={`mb-8 ${className}`}>
