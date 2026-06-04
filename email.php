@@ -18,8 +18,11 @@ try {
     
     require_once 'db_config.php';
 
+    // Keep mysqli connection failures in the normal connection-error branch below.
+    mysqli_report(MYSQLI_REPORT_OFF);
+
     // Create database connection
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
     // Check connection
     if ($conn->connect_error) {
@@ -140,9 +143,9 @@ try {
                         $mail->CharSet = 'UTF-8';
                         
                         // Recipients
-                        $mail->setFrom($email, $name); // Use the submitted email
+                        $mail->setFrom($gmail_user, 'Teknologi KBSE Contact Form');
                         $mail->addAddress($recipient_email); // Recipient email
-                        $mail->addReplyTo($email, $name); // Use the same submitted email
+                        $mail->addReplyTo($email, $name);
                         
                         // Content
                         $mail->isHTML(true);

@@ -287,14 +287,36 @@
           const { name, value } = e.target;
           setFormData(prev => ({ ...prev, [name]: value }));
         };
-        const handleSubmit = (e) => {
+        const handleSubmit = async (e) => {
           e.preventDefault();
           setStatus('Sending...');
-          setTimeout(() => {
-            setStatus('Message sent successfully!');
-            setFormData({ name: '', email: '', subject: '', message: '' });
-            setTimeout(() => setStatus(''), 5000);
-          }, 1500);
+
+          try {
+            const resp = await fetch('email.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({
+                name: formData.name,
+                email: formData.email,
+                subject: formData.subject,
+                message: formData.message
+              })
+            });
+
+            let data = { message: 'Unknown response' };
+            try { data = await resp.json(); } catch (e) { /* ignore parse errors */ }
+
+            if (resp.ok) {
+              setStatus(data.message || 'Message sent successfully!');
+              setFormData({ name: '', email: '', subject: '', message: '' });
+            } else {
+              setStatus(data.message || 'Failed to send message.');
+            }
+          } catch (err) {
+            setStatus('Network error. Please try again.');
+          }
+
+          setTimeout(() => setStatus(''), 5000);
         };
         return (
           <form onSubmit={handleSubmit} className="space-y-4">
